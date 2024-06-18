@@ -2,9 +2,22 @@
 {
     public class WorkoutPlan
     {
-        private static int planId;
+        private static int lastPlanId;
+        private int planId;
         private string planName;
-        private List<Workout> workouts;
+        private List<Exercise> exercises;
+
+        public int PlanId
+        {
+            get
+            {
+                return this.planId;
+            }
+            set
+            {
+                this.planId = value;
+            }
+        }
         public string PlanName
         {
             get
@@ -16,29 +29,33 @@
                 this.planName = value;
             }
         }
-        public List<Workout> Workouts
+        public List<Exercise> Exercises
         {
             get
             {
-                return this.workouts;
+                return this.exercises;
             }
             set
             {
-                this.workouts = value;
+                this.exercises = value;
             }
         }
 
         public WorkoutPlan() 
         {
-            Workouts = new List<Workout>();
+            Exercises = new List<Exercise>();
         }
 
-        public WorkoutPlan(string planName, List<Workout> workouts)        {
-            planId++;
+        public WorkoutPlan(string planName)        {
+            this.PlanId = ++lastPlanId;
             this.PlanName = planName;
-            Workouts = new List<Workout>();
+            this.Exercises = new List<Exercise>();
         }
 
+        public void AddExercise(Exercise exercise)
+        {
+            Exercises.Add(exercise);
+        }
         public void SaveToDatabase()
         {
 

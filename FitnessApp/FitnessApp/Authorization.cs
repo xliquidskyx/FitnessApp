@@ -1,36 +1,43 @@
-﻿/*using Microsoft.Data.Sqlite;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FitnessApp
 {
     public class Authorization
     {
-        private readonly string CONNECTION_STRING;
+        private readonly List<User> _users;
+        private int nextUserId;
 
-        public Authorization(string connectionString)
+        public Authorization()
         {
-            CONNECTION_STRING = connectionString;
-            CreateDatabase();
+            _users = new List<User>();
+            nextUserId = 0;
         }
 
-        private void CreateDatabase()
+        public bool Register(string name, string password, string email)
         {
-            using (var connection = new SqliteConnection(CONNECTION_STRING))
+            if (_users.Any(u => u.Email == email))
             {
-                connection.Open();
-
-                var command = connection.CreateCommand();
-                command.CommandText =
-                @"
-                CREATE TABLE IF NOT EXISTS Users (
-                    UserId INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT NOT NULL,
-                    Email TEXT NOT NULL UNIQUE,
-                    Password TEXT NOT NULL
-                );";
-
-                command.ExecuteNonQuery();
+                return false; //użytkownik istnieje, nie można założyć konta
             }
+            else
+            {
+                var hashedPassword = User.HashPassword(password);
+                var newUser = new User(name, hashedPassword, email);
+                _users.Add(newUser);
+                Console.WriteLine(newUser.Email);
+                return true;
+            }
+        }
+
+        public User Login(string email, string password)
+        {
+            var hashedPassword = User.HashPassword(password);
+            var checkUser = _users.SingleOrDefault(u => u.Email == email && u.Password == hashedPassword);
+            return checkUser;
         }
     }
 }
-*/

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -76,18 +77,15 @@ namespace FitnessApp
 
         public User()
         {
-            this.Id = ++lastId;
+            this.Id = lastId++;
             WorkoutPlans = new List<WorkoutPlan>();
         }
 
-        public void Register(string name, string password, string email)
+        public User(string name, string password, string email)
         {
-            id++;
             this.Name = name;
             this.Password = password;
             this.Email = email;
-
-            Console.WriteLine($"Last id: {User.lastId}");
         }
 
         public void Login()
@@ -95,9 +93,24 @@ namespace FitnessApp
 
         }
 
-        public void AddWorkoutPlan()
+        public static string HashPassword(string password)
         {
+            using (var sha256 = SHA256.Create())
+            {
+                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password)); //konwertujemy hasło na tablicę bajtów
+                var builder = new StringBuilder();
 
+                //konwertujemy bajty na szesnastkowy ciąg znaków
+                foreach (var b in bytes) {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        public void CreateWorkoutPlan(WorkoutPlan newPlan)
+        {
+            WorkoutPlans.Add(newPlan);
         }
 
         public void RemoveWorkoutPlan()

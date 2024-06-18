@@ -10,9 +10,14 @@ class AppStart
 {
     public static void Main(string[] args)
     {
-/*
-        var connectionString = "Data Source=training.db";
-        var authService = new Authorization(connectionString);*/
+
+        var authService = new Authorization();
+
+        var exerciseRepository = new ExerciseRepository();
+
+        exerciseRepository.AddExercise(new Exercise("Squat", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength));
+        exerciseRepository.AddExercise(new Exercise("sTRET", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength));
+        exerciseRepository.AddExercise(new Exercise("Squat", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength));
 
         while (true)
         {
@@ -25,7 +30,21 @@ class AppStart
 
             if (input == "1")
             {
+                Console.WriteLine("What's your email?");
+                string email = Console.ReadLine();
+                Console.WriteLine("What's your password?");
+                string password = Console.ReadLine();
 
+                var user = authService.Login(email, password);
+
+                if(user != null)
+                {
+                    Console.WriteLine($"Welcome back {user.Name}!");
+                }
+                else
+                {
+                    Console.WriteLine("Wrong login information. Try again");
+                }
             }
             else if (input == "2")
             {
@@ -36,9 +55,14 @@ class AppStart
                 Console.WriteLine("Set your password: ");
                 string password = Console.ReadLine();
 
-                User user = new User();
-                user.Register(name, password, email);
-                Console.WriteLine(user.Name);
+                if (authService.Register(name, password, email))
+                {
+                    Console.WriteLine("Registration successful");
+                }
+                else
+                {
+                    Console.WriteLine("Email is already taken");
+                }
             }
             else if (input == "3")
             {

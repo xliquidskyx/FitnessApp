@@ -10,7 +10,7 @@ namespace FitnessApp
         private string excerciseName;
         private string description;
         private ExerciseType ExerciseType;
-        public int ExcerciseId
+        public int ExerciseId
         {
             get
             {
@@ -45,7 +45,7 @@ namespace FitnessApp
         }
         public Exercise(string exerciseName, string description, ExerciseType type)
         {
-            this.ExcerciseId = ++lastExcerciseId;
+            this.ExerciseId = ++lastExcerciseId;
             this.ExerciseName = exerciseName;
             this.Description = description;
             this.ExerciseType = type;
