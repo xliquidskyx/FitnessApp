@@ -4,17 +4,7 @@
     {
         private static int workoutId;
         private List<Exercise> exercises;
-        public int WorkoutId
-        {
-            get
-            {
-                return this.workoutId;
-            }
-            set
-            {
-                this.workoutId = value;
-            }
-        }
+    
         public List<Exercise> Exercises 
         {
             get
@@ -25,6 +15,21 @@
             {
                 this.exercises = value;
             }
+        }
+
+        public Workout()
+        {
+            Exercises = new List<Exercise>();
+        }
+
+        public void SaveToDatabase()
+        {
+
+        }
+
+        public void RemoveFromDatabase()
+        {
+
         }
 
 

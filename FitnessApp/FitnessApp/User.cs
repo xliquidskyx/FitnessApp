@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,20 @@ namespace FitnessApp
 {
     public class User
     {
-        private static int id;
-        private string name;
-        private string password;
-        private string email;
+        private static int lastId;
+        private int id;
+        private string name = "";
+        private string password = "";
+        private string email = "";
         private List<WorkoutPlan> workoutPlans;
+
         public int Id
         {
             get
             {
                 return this.id;
             }
-            set 
+            private set
             {
                 this.id = value;
             }
@@ -73,16 +76,18 @@ namespace FitnessApp
 
         public User()
         {
-
+            this.Id = ++lastId;
             WorkoutPlans = new List<WorkoutPlan>();
         }
 
         public void Register(string name, string password, string email)
         {
-            Id = id++;
-            Name = this.name;
-            Password = this.password;
-            Email = this.email;
+            id++;
+            this.Name = name;
+            this.Password = password;
+            this.Email = email;
+
+            Console.WriteLine($"Last id: {User.lastId}");
         }
 
         public void Login()

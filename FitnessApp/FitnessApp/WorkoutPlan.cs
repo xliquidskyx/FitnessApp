@@ -5,17 +5,6 @@
         private static int planId;
         private string planName;
         private List<Workout> workouts;
-        public int PlanId
-        {
-            get
-            {
-                return this.planId;
-            }
-            set
-            {
-                this.planId = value;
-            }
-        }
         public string PlanName
         {
             get
@@ -45,8 +34,8 @@
         }
 
         public WorkoutPlan(string planName, List<Workout> workouts)        {
-            PlanId = planId++;
-            PlanName = this.planName;
+            planId++;
+            this.PlanName = planName;
             Workouts = new List<Workout>();
         }
 

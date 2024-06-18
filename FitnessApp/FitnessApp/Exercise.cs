@@ -1,24 +1,24 @@
 ﻿using System.Transactions;
+using FitnessApp.Enumerations;
 
 namespace FitnessApp
 {
     public class Exercise
     {
-        private int excerciseId;
+        private static int lastExcerciseId;
+        private int exerciseId;
         private string excerciseName;
-        private int repetitions;
-        private int sets;
-        private double weight;
-        private TimeSpan duration;
+        private string description;
+        private ExerciseType ExerciseType;
         public int ExcerciseId
         {
             get
             {
-                return this.excerciseId;
+                return this.exerciseId;
             }
             set
             {
-                this.excerciseId = value;
+                this.exerciseId = value;
             }
         }
         public string ExerciseName
@@ -32,49 +32,23 @@ namespace FitnessApp
                 this.excerciseName = value;
             }
         }
-        public int Repetitions
+        public string Description
         {
-            get
-            {
-                return this.repetitions;
+            get 
+            { 
+                return this.description;
             }
-            set
-            {
-                this.repetitions = value;
+            set 
+            { 
+                this.description = value;
             }
         }
-        public int Sets
+        public Exercise(string exerciseName, string description, ExerciseType type)
         {
-            get
-            {
-                return this.sets;
-            }
-            set
-            {
-                this.sets = value;
-            }
-        }
-        public double Weight
-        {
-            get
-            {
-                return this.weight;
-            }
-            set
-            {
-                this.weight = value;
-            }
-        }
-        public TimeSpan Duration
-        {
-            get
-            {
-                return this.duration;
-            }
-            set
-            {
-                this.duration = value;
-            }
+            this.ExcerciseId = ++lastExcerciseId;
+            this.ExerciseName = exerciseName;
+            this.Description = description;
+            this.ExerciseType = type;
         }
     }
 }
