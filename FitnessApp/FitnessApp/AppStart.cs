@@ -11,7 +11,8 @@ class AppStart
 {
     public static void Main(string[] args)
     {
-
+        //TODO: dodac wiecej cwiczen (wygenerowac w czacie)
+        //TODO: zakonczyc funkcjonalnosc aplikacji i finito
         var authService = new Authorization();
 
         var exerciseRepository = new ExerciseRepository();
@@ -48,7 +49,7 @@ class AppStart
                     } else
                     {
                         Console.WriteLine("You don't have any workout plan, let's create one!");
-                        CreateWorkoutPlan(exerciseRepository);
+                        CreateWorkoutPlan(user, exerciseRepository);
                     }
                 }
                 else
@@ -86,7 +87,7 @@ class AppStart
 
     }
 
-    private static void CreateWorkoutPlan(ExerciseRepository repository) {
+    private static void CreateWorkoutPlan(User user, ExerciseRepository repository) {
         {
             Console.WriteLine("What is your fitness level?");
             Console.WriteLine("1. Easy");
@@ -122,6 +123,16 @@ class AppStart
 
             Console.Write("Choose a name for your plan: ");
             string planName = Console.ReadLine();
+
+            var workoutPlan = new WorkoutPlan(planName, repository);
+            foreach(var exercise in exercises)
+            {
+                workoutPlan.AddExerciseById(exercise.ExerciseId);
+            }
+
+            user.AddWorkoutPlan(workoutPlan);
+            Console.WriteLine($"Training plan {planName} has been created with {exercises.Count} exercises.");
+            workoutPlan.PrintExercises(); //TODO: make it work
         }
     }
 }

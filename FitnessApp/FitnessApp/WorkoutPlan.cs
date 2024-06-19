@@ -8,6 +8,7 @@ namespace FitnessApp
         private int planId;
         private string planName;
         private List<Exercise> exercises;
+        private ExerciseRepository exercisesRepository;
 
         public int PlanId
         {
@@ -48,26 +49,28 @@ namespace FitnessApp
             Exercises = new List<Exercise>();
         }
 
-        public WorkoutPlan(string planName, Difficulty difficulty)        {
+        public WorkoutPlan(string planName, ExerciseRepository exerciseRepository)        {
             this.PlanId = ++lastPlanId;
             this.PlanName = planName;
             this.Exercises = new List<Exercise>();
+            this.exercisesRepository = exerciseRepository;
+        }
+        
+        public void AddExerciseById(int exerciseId)
+        {
+            var exercise = Exercises.Find(e => e.ExerciseId == exerciseId);
+            if(exercise != null)
+            {
+                Exercises.Add(exercise);
+            }
         }
 
-        public void AddExercise(Exercise exercise)
+        public void PrintExercises()
         {
-            Exercises.Add(exercise);
-        }
-        public void AddWorkout() 
-        { 
-        }
-
-        public void RemoveWorkout()
-        {
-        }
-
-        public void LoadWorkouts()
-        {
+            foreach (var exercise in Exercises)
+            {
+                Console.WriteLine($"- {exercise.ExerciseName}");
+            }
         }
     }
 }

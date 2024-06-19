@@ -78,7 +78,7 @@ namespace FitnessApp
         public User()
         {
             this.Id = lastId++;
-            WorkoutPlans = new List<WorkoutPlan>();
+            
         }
 
         public User(string name, string password, string email)
@@ -86,6 +86,7 @@ namespace FitnessApp
             this.Name = name;
             this.Password = password;
             this.Email = email;
+            this.WorkoutPlans = new List<WorkoutPlan>();
         }
 
         public static string HashPassword(string password)
@@ -106,6 +107,11 @@ namespace FitnessApp
         public bool HasWorkoutPlan()
         {
             return WorkoutPlans != null && WorkoutPlans.Any();
+        }
+
+        public void AddWorkoutPlan(WorkoutPlan workoutPlan)
+        {
+            WorkoutPlans.Add(workoutPlan);
         }
     }
 }
