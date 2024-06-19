@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using FitnessApp;
@@ -15,9 +16,9 @@ class AppStart
 
         var exerciseRepository = new ExerciseRepository();
 
-        exerciseRepository.AddExercise(new Exercise("Squat", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength));
-        exerciseRepository.AddExercise(new Exercise("sTRET", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength));
-        exerciseRepository.AddExercise(new Exercise("Squat", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength));
+        exerciseRepository.AddExercise(new Exercise("Squat", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength, Difficulty.Medium));
+        exerciseRepository.AddExercise(new Exercise("sTRET", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength, Difficulty.Medium));
+        exerciseRepository.AddExercise(new Exercise("Squat", "An exercise that targets lower body, primarily the quadriceps, hamstrings, glutes, and calves.", ExerciseType.Strength, Difficulty.Medium));
 
         while (true)
         {
@@ -37,9 +38,18 @@ class AppStart
 
                 var user = authService.Login(email, password);
 
-                if(user != null)
+                if (user != null)
                 {
                     Console.WriteLine($"Welcome back {user.Name}!");
+
+                    if (user.HasWorkoutPlan())
+                    {
+                        Console.WriteLine("You already have a workout plan. Here it is:");
+                    } else
+                    {
+                        Console.WriteLine("You don't have any workout plan, let's create one!");
+                        CreateWorkoutPlan(exerciseRepository);
+                    }
                 }
                 else
                 {
@@ -74,7 +84,44 @@ class AppStart
             }
         }
 
+    }
 
+    private static void CreateWorkoutPlan(ExerciseRepository repository) {
+        {
+            Console.WriteLine("What is your fitness level?");
+            Console.WriteLine("1. Easy");
+            Console.WriteLine("2. Medium");
+            Console.WriteLine("3. Hard");
+            Console.Write("Select an option: ");
+            var option = Console.ReadLine();
 
+            Difficulty selectedDifficulty;
+            switch (option)
+            {
+                case "1":
+                    selectedDifficulty = Difficulty.Easy;
+                    break;
+                case "2":
+                    selectedDifficulty = Difficulty.Medium;
+                    break;
+                case "3":
+                    selectedDifficulty = Difficulty.Hard;
+                    break;
+                default:
+                    Console.WriteLine("Invalid option");
+                    return;
+            }
+
+            var exercises = repository.GetExercisesByDifficulty(selectedDifficulty);
+
+            if (exercises.Count == 0)
+            {
+                Console.WriteLine("There are no exercises available for that level. Try with a different option");
+                return;
+            }
+
+            Console.Write("Choose a name for your plan: ");
+            string planName = Console.ReadLine();
+        }
     }
 }

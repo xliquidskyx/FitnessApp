@@ -88,11 +88,6 @@ namespace FitnessApp
             this.Email = email;
         }
 
-        public void Login()
-        {
-
-        }
-
         public static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -108,19 +103,9 @@ namespace FitnessApp
             }
         }
 
-        public void CreateWorkoutPlan(WorkoutPlan newPlan)
+        public bool HasWorkoutPlan()
         {
-            WorkoutPlans.Add(newPlan);
-        }
-
-        public void RemoveWorkoutPlan()
-        {
-
-        }
-        
-        public void GetWorkoutPlan()
-        {
-
+            return WorkoutPlans != null && WorkoutPlans.Any();
         }
     }
 }

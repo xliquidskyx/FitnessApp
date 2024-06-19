@@ -1,4 +1,6 @@
-﻿namespace FitnessApp
+﻿using FitnessApp.Enumerations;
+
+namespace FitnessApp
 {
     public class WorkoutPlan
     {
@@ -46,7 +48,7 @@
             Exercises = new List<Exercise>();
         }
 
-        public WorkoutPlan(string planName)        {
+        public WorkoutPlan(string planName, Difficulty difficulty)        {
             this.PlanId = ++lastPlanId;
             this.PlanName = planName;
             this.Exercises = new List<Exercise>();
@@ -56,16 +58,6 @@
         {
             Exercises.Add(exercise);
         }
-        public void SaveToDatabase()
-        {
-
-        }
-
-        public void RemoveFromDatabase()
-        {
-
-        }
-
         public void AddWorkout() 
         { 
         }

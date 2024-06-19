@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitnessApp.Enumerations;
 
 namespace FitnessApp
 {
@@ -13,7 +14,7 @@ namespace FitnessApp
         public ExerciseRepository() 
         { 
             exercises = new List<Exercise>();
-            nextExerciseId = 0;
+            nextExerciseId = 1;
         }
 
         public void AddExercise(Exercise exercise)
@@ -40,6 +41,19 @@ namespace FitnessApp
             {
                 exercises.Remove(exercise);
             }
+        }
+
+        public void PrintAllExercises()
+        {
+            foreach (Exercise exercise in exercises)
+            {
+                Console.WriteLine($"{exercise.ExerciseId}. {exercise.ExerciseName}: {exercise.Description}");
+            }
+        }
+
+        public List<Exercise> GetExercisesByDifficulty(Difficulty difficulty)
+        {
+            return exercises.Where(e => e.Difficulty == difficulty).ToList();
         }
     }
 }

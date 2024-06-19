@@ -10,6 +10,7 @@ namespace FitnessApp
         private string excerciseName;
         private string description;
         private ExerciseType ExerciseType;
+        public Difficulty Difficulty;
         public int ExerciseId
         {
             get
@@ -43,12 +44,13 @@ namespace FitnessApp
                 this.description = value;
             }
         }
-        public Exercise(string exerciseName, string description, ExerciseType type)
+        public Exercise(string exerciseName, string description, ExerciseType type, Difficulty difficulty)
         {
             this.ExerciseId = ++lastExcerciseId;
             this.ExerciseName = exerciseName;
             this.Description = description;
             this.ExerciseType = type;
+            this.Difficulty = difficulty;
         }
     }
 }

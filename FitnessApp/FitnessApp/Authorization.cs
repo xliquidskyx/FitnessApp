@@ -28,7 +28,6 @@ namespace FitnessApp
                 var hashedPassword = User.HashPassword(password);
                 var newUser = new User(name, hashedPassword, email);
                 _users.Add(newUser);
-                Console.WriteLine(newUser.Email);
                 return true;
             }
         }
