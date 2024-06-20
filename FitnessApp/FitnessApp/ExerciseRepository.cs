@@ -28,9 +28,9 @@ namespace FitnessApp
             return exercises;
         }
 
-        public Exercise GetExercise(string exerciseName)
+        public Exercise GetExercise(int exerciseId)
         {
-            return exercises.FirstOrDefault(e => e.ExerciseName == exerciseName);
+            return exercises.FirstOrDefault(e => e.ExerciseId == exerciseId);
         }
 
         public void RemoveExercise(string exerciseName)

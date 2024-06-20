@@ -8,7 +8,7 @@ namespace FitnessApp
 {
     public interface IExerciseRepository
     {
-        Exercise GetExercise(string exerciseName);
+        Exercise GetExercise(int exerciseId);
         void AddExercise(Exercise exercise);
         void RemoveExercise(string exerciseName);
         List<Exercise> GetAllExercises();

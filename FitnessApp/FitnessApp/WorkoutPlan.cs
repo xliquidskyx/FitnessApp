@@ -58,7 +58,7 @@ namespace FitnessApp
         
         public void AddExerciseById(int exerciseId)
         {
-            var exercise = Exercises.Find(e => e.ExerciseId == exerciseId);
+            var exercise = exercisesRepository.GetExercise(exerciseId);
             if(exercise != null)
             {
                 Exercises.Add(exercise);
@@ -69,7 +69,7 @@ namespace FitnessApp
         {
             foreach (var exercise in Exercises)
             {
-                Console.WriteLine($"- {exercise.ExerciseName}");
+                Console.WriteLine($"- {exercise.ExerciseName} - {exercise.Description}");
             }
         }
     }

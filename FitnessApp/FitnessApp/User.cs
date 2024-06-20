@@ -113,5 +113,15 @@ namespace FitnessApp
         {
             WorkoutPlans.Add(workoutPlan);
         }
+
+        public void PrintWorkoutPlan()
+        {
+            foreach(var plan in WorkoutPlans)
+            {
+                Console.WriteLine(plan.PlanName);
+                plan.PrintExercises();
+                Console.WriteLine();
+            }
+        }
     }
 }
