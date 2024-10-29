@@ -11,7 +11,6 @@ class AppStart
 {
     public static void Main(string[] args)
     {
-        //TODO: zakonczyc funkcjonalnosc aplikacji i finito
         var authService = new Authorization();
 
         var exerciseRepository = new ExerciseRepository();
